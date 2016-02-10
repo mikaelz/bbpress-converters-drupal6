@@ -1,1 +1,3 @@
-# bbpress-converters-drupal6
+# Drupal6 converter for bbPress
+
+Work in progress
