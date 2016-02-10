@@ -158,7 +158,7 @@ class Drupal6 extends BBP_Converter_Base {
 			'from_fieldname' => 'uid',
             'from_expression' => 'WHERE type != "forum"',
 			'to_type'        => 'topic',
-			'to_fieldname'   => 'post_author'
+			'to_fieldname'   => 'post_author',
             'callback_method' => 'callback_userid'
 		);
 
