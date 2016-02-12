@@ -40,7 +40,7 @@ class Drupal6 extends BBP_Converter_Base {
 			'join_tablename'  => 'term_data',
 			'join_type'       => 'INNER',
 			'join_expression' => 'USING (tid)',
-			'from_expression' => 'LEFT JOIN vocabulary AS vocabulary USING (vid) WHERE module = "forum"',
+			'from_expression' => 'LEFT JOIN an_vocabulary AS an_vocabulary USING (vid) WHERE module = "forum"',
 			'to_type'         => 'forum',
 			'to_fieldname'    => '_bbp_forum_parent_id'
 		);
@@ -107,7 +107,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename' => 'node',
 			'from_fieldname' => 'nid',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'        => 'topic',
 			'to_fieldname'   => '_bbp_topic_id'
 		);
@@ -143,7 +142,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'term_node',
 			'from_fieldname'  => 'tid',
-            'from_expression' => 'WHERE type != "forum"',
 			'join_tablename'  => 'node',
 			'join_type'       => 'INNER',
 			'join_expression' => 'ON term_node.nid = node.nid',
@@ -156,7 +154,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename' => 'node',
 			'from_fieldname' => 'uid',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'        => 'topic',
 			'to_fieldname'   => 'post_author',
             'callback_method' => 'callback_userid'
@@ -179,7 +176,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename' => 'node',
 			'from_fieldname' => 'title',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'        => 'topic',
 			'to_fieldname'   => 'post_title'
 		);
@@ -188,7 +184,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'node',
 			'from_fieldname'  => 'title',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'         => 'topic',
 			'to_fieldname'    => 'post_name',
 			'callback_method' => 'callback_slug'
@@ -199,7 +194,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'term_node',
 			'from_fieldname'  => 'tid',
-            'from_expression' => 'WHERE type != "forum"',
 			'join_tablename'  => 'node',
 			'join_type'       => 'INNER',
 			'join_expression' => 'ON term_node.nid = node.nid',
@@ -212,7 +206,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'node',
 			'from_fieldname'  => 'sticky',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'         => 'topic',
 			'to_fieldname'    => '_bbp_old_sticky_status',
 			'callback_method' => 'callback_sticky_status'
@@ -222,7 +215,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'node',
 			'from_fieldname'  => 'created',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'         => 'topic',
 			'to_fieldname'    => 'post_date',
 			'callback_method' => 'callback_datetime'
@@ -230,7 +222,6 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'node',
 			'from_fieldname'  => 'created',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'         => 'topic',
 			'to_fieldname'    => 'post_date_gmt',
 			'callback_method' => 'callback_datetime'
@@ -270,64 +261,16 @@ class Drupal6 extends BBP_Converter_Base {
 		$this->field_map[] = array(
 			'from_tablename'  => 'node',
 			'from_fieldname'  => 'comment',
-            'from_expression' => 'WHERE type != "forum"',
 			'to_type'         => 'topic',
 			'to_fieldname'    => 'post_status',
 			'callback_method' => 'callback_topic_status'
 		);
 
-		// /** Tags Section ******************************************************/
+		/** Tags Section ******************************************************/
 
-		// // Topic id.
-		// $this->field_map[] = array(
-			// 'from_tablename'  => 'field_data_field_tags',
-			// 'from_fieldname'  => 'entity_id',
-			// 'to_type'         => 'tags',
-			// 'to_fieldname'    => 'objectid',
-			// 'callback_method' => 'callback_topicid'
-		// );
-
-		// // Taxonomy ID.
-		// $this->field_map[] = array(
-			// 'from_tablename'  => 'field_data_field_tags',
-			// 'from_fieldname'  => 'field_tags_tid',
-			// 'to_type'         => 'tags',
-			// 'to_fieldname'    => 'taxonomy'
-		// );
-
-		// // Term name.
-		// $this->field_map[] = array(
-			// 'from_tablename'  => 'term_data',
-			// 'from_fieldname'  => 'name',
-			// 'join_tablename'  => 'field_data_field_tags',
-			// 'join_type'       => 'INNER',
-			// 'join_expression' => 'ON field_tags_tid = term_data.tid',
-			// 'to_type'         => 'tags',
-			// 'to_fieldname'    => 'name'
-		// );
-
-		// // Term slug.
-		// $this->field_map[] = array(
-			// 'from_tablename'  => 'term_data',
-			// 'from_fieldname'  => 'name',
-			// 'join_tablename'  => 'field_data_field_tags',
-			// 'join_type'       => 'INNER',
-			// 'join_expression' => 'ON field_tags_tid = term_data.tid',
-			// 'to_type'         => 'tags',
-			// 'to_fieldname'    => 'slug',
-			// 'callback_method' => 'callback_slug'
-		// );
-
-		// // Term description.
-		// $this->field_map[] = array(
-			// 'from_tablename'  => 'term_data',
-			// 'from_fieldname'  => 'description',
-			// 'join_tablename'  => 'field_data_field_tags',
-			// 'join_type'       => 'INNER',
-			// 'join_expression' => 'ON field_tags_tid = term_data.tid',
-			// 'to_type'         => 'tags',
-			// 'to_fieldname'    => 'description'
-		// );
+		/**
+		 * Drupal v6.x Advanced Forum do not support topic tags
+		 */
 
 		/** Reply Section *****************************************************/
 
@@ -526,6 +469,15 @@ class Drupal6 extends BBP_Converter_Base {
 			'to_type'         => 'user',
 			'callback_method' => 'callback_html'
 		);
+        
+        // Store Avatar Filename (Stored in usermeta)
+		$this->field_map[] = array(
+			'from_tablename' => 'users',
+			'from_fieldname' => 'picture',
+			'to_type'        => 'user',
+			'to_fieldname'   => '_bbp_drupal6_user_avatar',
+            'callback_method' => 'callback_user_picture'
+		);
 	}
 
 	/**
@@ -558,6 +510,13 @@ class Drupal6 extends BBP_Converter_Base {
 		return ( $pass_array['hash'] == md5( md5( $password ). $pass_array['salt'] ) );
 	}
 
+	/**
+	 * This method is to remove the path from the users picture
+	 */
+	public function callback_user_picture( $picture ) {
+		return basename($picture);
+	}
+    
 	/**
 	 * Translate the post status from Drupal v6.x numeric's to WordPress's strings.
 	 *
