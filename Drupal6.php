@@ -40,7 +40,7 @@ class Drupal6 extends BBP_Converter_Base {
 			'join_tablename'  => 'term_data',
 			'join_type'       => 'INNER',
 			'join_expression' => 'USING (tid)',
-			'from_expression' => 'LEFT JOIN an_vocabulary AS an_vocabulary USING (vid) WHERE module = "forum"',
+			'from_expression' => 'LEFT JOIN vocabulary USING (vid) WHERE module = "forum"',
 			'to_type'         => 'forum',
 			'to_fieldname'    => '_bbp_forum_parent_id'
 		);
